@@ -47,3 +47,4 @@ const fraudMiddleware = async (req, res, next) => {
 };
 
 module.exports = fraudMiddleware;
+// js file for Fraud Gateway
