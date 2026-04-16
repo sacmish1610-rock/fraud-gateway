@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+//Database connection file using Mongoose to connect to MongoDB Atlas.
 
 const connectDB = async () => {
   try {
