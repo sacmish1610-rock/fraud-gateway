@@ -1,8 +1,12 @@
+//Importing necessary modules and models
 const express = require("express");
 const router = express.Router();
+
+// Importing User and Transaction models to interact with the database
 const User = require("../models/User");
 const Transaction = require("../models/Transaction");
 
+// Route to get analytics data for a specific user
 router.get("/analytics/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
@@ -13,6 +17,7 @@ router.get("/analytics/:userId", async (req, res) => {
     }
 
     // ---- BASIC COUNTS ----
+
     const totalTransactions = await Transaction.countDocuments({ userId });
 
     const totalBlocked = await Transaction.countDocuments({
@@ -30,6 +35,7 @@ router.get("/analytics/:userId", async (req, res) => {
       decision: "OTP_REQUIRED",
     });
 
+    //// ---- PAST FRAUDS ------
     const pastFrauds = totalBlocked;
 
     // ---- LAST 10 TRANSACTIONS ----
@@ -59,10 +65,14 @@ router.get("/analytics/:userId", async (req, res) => {
       { $limit: 7 },
     ]);
 
+    // Transforming the risk trend data for frontend consumption
+
     const riskTrend = riskTrendRaw.map((item) => ({
       date: item._id,
       avgRisk: Number(item.avgRisk.toFixed(2)),
     }));
+
+    // Sending the analytics data as a JSON response
 
     res.json({
       userId,
