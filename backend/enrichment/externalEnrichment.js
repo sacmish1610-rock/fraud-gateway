@@ -1,3 +1,4 @@
+// external enrichment
 const fs = require("fs");
 
 let cachedExternalData = null;
@@ -27,3 +28,4 @@ const externalEnrichment = async () => {
 };
 
 module.exports = externalEnrichment;
+// transactionenrichment

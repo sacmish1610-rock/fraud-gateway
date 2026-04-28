@@ -1,3 +1,4 @@
+// user enrichment
 const User = require("../models/User");
 
 const userEnrichment = async (req) => {
